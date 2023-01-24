@@ -1,14 +1,15 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { postCreatePokemon } from "../../Redux/actions";
-// import Select from "react-select";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { postCreatePokemon, getPokemonTypes } from "../../Redux/actions";
+import Select from "react-select";
 
 const Form = () => {
   const dispatch = useDispatch();
+  const Types = useSelector((state) => state.types);
   const [create, setCreate] = useState({
     name: "",
     image: "",
-    types: [],
+    types: "",
     hp: 0,
     attack: 0,
     defense: 0,
@@ -17,15 +18,18 @@ const Form = () => {
     weight: 0,
   });
   const [error, setError] = useState({});
+  const [disabled, setDisabled] = useState(true);
 
   function validate(create) {
     let err = {};
     if (!create.name || typeof create.name !== "string") {
       err.name = "Please type a name!";
-    } else if (!create.hp || create.hp < 0 || create.hp > 500) {
-      err.hp = "Please enter a value between 0 and 500!";
     } else if (!create.image) {
       err.image = "please enter an image";
+    } else if (!create.types) {
+      err.types = "Please select a type or more types!";
+    } else if (!create.hp || create.hp < 0 || create.hp > 500) {
+      err.hp = "Please enter a value between 0 and 500!";
     } else if (!create.attack || create.attack < 0 || create.attack > 300) {
       err.attack = "Please enter a value between 0 and 300!";
     } else if (!create.defense || create.defense < 0 || create.defense > 300) {
@@ -37,6 +41,7 @@ const Form = () => {
     } else if (!create.weight || create.weight < 0 || create.weight > 500) {
       err.weight = "Please enter a value between 0 and 500!";
     }
+    setDisabled(false);
     return err;
   }
 
@@ -55,12 +60,32 @@ const Form = () => {
     );
   };
 
+  const handleSelect = (event) => {
+    console.log(event, "eventos");
+    setCreate({
+      ...create,
+      types: event.map((e) => {
+        return e.value;
+      }),
+    });
+    setError(
+      validate({
+        ...create,
+        types: event.map((type) => {
+          return type.value;
+        }),
+      })
+    );
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(postCreatePokemon(create));
     alert("Pokemon creado");
   };
-
+  useEffect(() => {
+    dispatch(getPokemonTypes());
+  }, [dispatch]);
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -80,13 +105,16 @@ const Form = () => {
           value={create.image}
         />
         <span>{error.image && <p>{error.image}</p>}</span>
-        {/* <label>Types:</label>
-        <input
-          type="text"
-          name="type"
-          onChange={handleChange}
-          value={create.types}
-        /> */}
+        <label>Types:</label>
+        <Select
+          isMulti
+          options={Types.map((type) => ({
+            value: type.name,
+            label: type.name,
+          }))}
+          onChange={(event) => handleSelect(event)}
+        />
+        {error.types && <p>{error.types}</p>}
         <label>Hp:</label>
         <input
           type="number"
@@ -134,9 +162,17 @@ const Form = () => {
           onChange={handleChange}
           value={create.weight}
         />
-        <label>Types:</label>
         <span>{error.weight && <p>{error.weight}</p>}</span>
-        <button type="submit">CREATE POKEMON</button>
+        <button
+          type="submit"
+          disabled={
+            disabled === false && Object.entries(error).length === 0
+              ? false
+              : true
+          }
+        >
+          CREATE POKEMON
+        </button>
       </form>
     </div>
   );

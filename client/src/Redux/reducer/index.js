@@ -3,6 +3,7 @@ import {
   CREATE_POKEMON,
   DETAIL_POKEMON,
   CLEAR_DETAIL,
+  GET_TYPES,
 } from "../actions";
 
 const initialState = {
@@ -33,6 +34,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pokemonDetail: action.payload,
+      };
+    case GET_TYPES:
+      return {
+        ...state,
+        types: action.payload,
       };
     default:
       return state;

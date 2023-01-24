@@ -5,7 +5,7 @@ export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS";
 export const CREATE_POKEMON = "CREATE_POKEMON";
 export const DETAIL_POKEMON = "DETAIL_POKEMON";
 export const CLEAR_DETAIL = "CLEAR_DETAIL";
-// export const GET_TYPES = "GET_TYPES";
+export const GET_TYPES = "GET_TYPES";
 
 export const getAllPokemons = () => async (dispatch) => {
   const response = await axios.get("http://localhost:3001/pokemons");
@@ -53,4 +53,13 @@ export const clearDetail = () => {
     type: CLEAR_DETAIL,
     payload: [],
   };
+};
+
+export const getPokemonTypes = () => async (dispatch) => {
+  const responseTypes = await axios.get("http://localhost:3001/types");
+  const types = responseTypes.data;
+  dispatch({
+    type: GET_TYPES,
+    payload: types,
+  });
 };
