@@ -61,7 +61,7 @@ const Form = () => {
   };
 
   const handleSelect = (event) => {
-    console.log(event, "eventos");
+  
     setCreate({
       ...create,
       types: event.map((e) => {

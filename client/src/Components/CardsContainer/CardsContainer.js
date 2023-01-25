@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllPokemons } from "../../Redux/actions/index";
 import Card from "../Card/Card";
 import { useState } from "react";
-import Pagination from "../../Pagination/Pagination";
+import Pagination from "../Pagination/Pagination";
+import Orderings from "../Orderings/Orderings";
+import Filters from "../Filters/Filters";
 
 const CardsContainer = () => {
   const dispatch = useDispatch();
   const pokemons = useSelector((state) => state.pokemons);
+  const [order, setOrder] = useState([]);
   const [currentPage, setCurrentPage] = useState(1); // pagina actual
   const [postsPerPage, setPostsPerPage] = useState(12); // cantidad de posts por pagina
   const lastPostIndex = currentPage * postsPerPage; // indice del ultimo post de la pagina
@@ -16,7 +19,11 @@ const CardsContainer = () => {
 
   useEffect(() => {
     dispatch(getAllPokemons());
+    setPostsPerPage(12);
   }, [dispatch]);
+
+  useEffect(() => {
+  }, [order]);
 
   return (
     <div>
@@ -25,7 +32,8 @@ const CardsContainer = () => {
         postsPerPage={postsPerPage}
         setCurrentPage={setCurrentPage}
       />
-
+      <Orderings setOrder={setOrder}/>
+      <Filters setOrder={setOrder}/>
       {currentPosts?.map((pokemon, index) => {
         return (
           <Card

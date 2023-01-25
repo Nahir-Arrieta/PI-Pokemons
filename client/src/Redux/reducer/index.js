@@ -4,10 +4,15 @@ import {
   DETAIL_POKEMON,
   CLEAR_DETAIL,
   GET_TYPES,
+  ORDERING_BY_NAME,
+  FILTER_TYPES,
+  POKEMON_BD,
+  POKEMON_API,
 } from "../actions";
 
 const initialState = {
   pokemons: [],
+  pokemonsCopy: [],
   pokemonDetail: [],
   pokemonCreate: [],
   types: [],
@@ -19,6 +24,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pokemons: action.payload,
+        pokemonsCopy: action.payload,
       };
     case CREATE_POKEMON:
       return {
@@ -40,9 +46,87 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         types: action.payload,
       };
+      case ORDERING_BY_NAME:
+        if(action.payload === "asc"){
+          return{
+            ...state,
+            pokemons: state.pokemons.sort((a,b) => {
+              if(a.name > b.name){
+                return 1;
+              }
+              if(a.name < b.name){
+                return -1;
+              }
+              return 0;
+            })
+          }
+        }
+        if(action.payload === "desc"){
+          return{
+            ...state,
+            pokemons: state.pokemons.sort((a,b) => {
+              if(a.name < b.name){
+                return 1;
+              }
+              if(a.name > b.name){
+                return -1;
+              }
+              return 0;
+            })
+          }
+        }
+        if(action.payload === "attack-asc") {
+          return {
+            ...state,
+            pokemons: state.pokemons.sort((a,b) => {
+              if(a.attack > b.attack){
+                return -1;
+              }
+              if(a.attack < b.attack){
+                return 1
+              }
+              return 0
+            })
+          }
+
+          }
+          if(action.payload === "attack-desc") {
+            return {
+              ...state,
+              pokemons: state.pokemons.sort((a,b) => {
+                if(a.attack < b.attack){
+                  return -1;
+                }
+                if(a.attack > b.attack){
+                  return 1
+                }
+                return 0
+              })
+            }
+        }
+      break
+      case FILTER_TYPES:
+        return {
+       ...state,
+       pokemons: state.pokemonsCopy.filter(pokemon => pokemon.types.includes(action.payload) || pokemon.types.map(type => type.name).includes(action.payload))
+       }
+
+       case POKEMON_BD:
+        return {
+          ...state,
+          pokemons: action.payload,
+          pokemonsCopy: action.payload
+        }
+        case POKEMON_API:
+          return{
+            ...state,
+            pokemons: action.payload,
+            pokemonsCopy: action.payload
+          }
     default:
       return state;
   }
+
 };
 
 export default rootReducer;
