@@ -7,9 +7,10 @@ export const DETAIL_POKEMON = "DETAIL_POKEMON";
 export const CLEAR_DETAIL = "CLEAR_DETAIL";
 export const GET_TYPES = "GET_TYPES";
 export const ORDERING_BY_NAME = "ORDERING_BY_NAME";
-export const FILTER_TYPES = "FILTER_TYPES"
-export const POKEMON_BD = "POKEMON_BD"
-export const POKEMON_API = "POKEMON_API"
+export const FILTER_TYPES = "FILTER_TYPES";
+export const POKEMON_BD = "POKEMON_BD";
+export const POKEMON_API = "POKEMON_API";
+export const POKEMON_SEARCH = "POKEMON_SEARCH";
 
 export const getAllPokemons = () => async (dispatch) => {
   const response = await axios.get("http://localhost:3001/pokemons");
@@ -73,28 +74,42 @@ export const ordering = (payload) => {
     type: ORDERING_BY_NAME,
     payload: payload,
   };
-}
+};
 
 export const filterByTypes = (payload) => {
   return {
     type: FILTER_TYPES,
-    payload: payload
-  }
-}
+    payload: payload,
+  };
+};
 
-export const pokemonBd = () => async(dispatch) =>{
-  const responseBd= await axios.get("http://localhost:3001/pokemonsdb")
+export const pokemonBd = () => async (dispatch) => {
+  const responseBd = await axios.get("http://localhost:3001/pokemonsdb");
   dispatch({
     type: POKEMON_BD,
-    payload: responseBd.data
-  })
-}
+    payload: responseBd.data,
+  });
+};
 
-export const getPokemonsApi = () => async(dispatch) =>{
-  const responseApi = await axios.get("http://localhost:3001/pokemons")
+export const getPokemonsApi = () => async (dispatch) => {
+  const responseApi = await axios.get("http://localhost:3001/pokemons");
   dispatch({
     type: POKEMON_API,
-    payload: responseApi.data
-  })
-}
+    payload: responseApi.data,
+  });
+};
 
+export const pokemonSearch = (name) => async (dispatch) => {
+  try {
+    const responseSearch = await axios.get(
+      `http://localhost:3001/pokemon?name=${name}`
+    );
+    console.log(responseSearch.data);
+    dispatch({
+      type: POKEMON_SEARCH,
+      payload: [responseSearch.data],
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

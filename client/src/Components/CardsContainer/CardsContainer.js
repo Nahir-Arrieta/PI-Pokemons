@@ -6,11 +6,13 @@ import { useState } from "react";
 import Pagination from "../Pagination/Pagination";
 import Orderings from "../Orderings/Orderings";
 import Filters from "../Filters/Filters";
+import Search from "../Search/Search";
 
 const CardsContainer = () => {
   const dispatch = useDispatch();
   const pokemons = useSelector((state) => state.pokemons);
   const [order, setOrder] = useState([]);
+  const [restart, setRestart] = useState(false); // para reiniciar el ordenamiento
   const [currentPage, setCurrentPage] = useState(1); // pagina actual
   const [postsPerPage, setPostsPerPage] = useState(12); // cantidad de posts por pagina
   const lastPostIndex = currentPage * postsPerPage; // indice del ultimo post de la pagina
@@ -20,10 +22,9 @@ const CardsContainer = () => {
   useEffect(() => {
     dispatch(getAllPokemons());
     setPostsPerPage(12);
-  }, [dispatch]);
+  }, [dispatch, restart]);
 
-  useEffect(() => {
-  }, [order]);
+  useEffect(() => {}, [order]);
 
   return (
     <div>
@@ -32,8 +33,13 @@ const CardsContainer = () => {
         postsPerPage={postsPerPage}
         setCurrentPage={setCurrentPage}
       />
-      <Orderings setOrder={setOrder}/>
-      <Filters setOrder={setOrder}/>
+      <Orderings
+        setOrder={setOrder}
+        setRestart={setRestart}
+        restart={restart}
+      />
+      <Filters setOrder={setOrder} />
+      <Search />
       {currentPosts?.map((pokemon, index) => {
         return (
           <Card
