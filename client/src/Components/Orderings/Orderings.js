@@ -14,18 +14,24 @@ const Orderings = ({ setOrder, setRestart, restart }) => {
   };
 
   return (
-    <div className="orderings">
-      <label>Order by:</label>
-      <select value="default" onChange={handleOrdering}>
-        <option value="default" disabled>
-          Sort
-        </option>
-        <option value="asc">Ascending</option>
-        <option value="desc">Descending</option>
-        <option value="attack-asc">Attack Ascending</option>
-        <option value="attack-desc">Attack Descending</option>
-      </select>
-      <button onClick={handleRestart}>Restart</button>
+    <div>
+      <div className="dropdown">
+         <div className= "dropdown-select">
+          {/* <label>Order by:</label> */}
+           <select value="default" onChange={handleOrdering}>
+            <option value="default" disabled>
+              Order by
+            </option>
+             <div className="selectItem">
+              <option value="asc">Ascending</option>
+              <option value="desc">Descending</option>
+              <option value="attack-asc">Attack Ascending</option>
+              <option value="attack-desc">Attack Descending</option>
+             </div>
+          </select>
+        </div>
+      </div>
+        <button onClick={handleRestart}>Restart</button>
     </div>
   );
 };

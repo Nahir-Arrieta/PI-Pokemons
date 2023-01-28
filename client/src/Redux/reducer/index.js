@@ -106,6 +106,12 @@ const rootReducer = (state = initialState, action) => {
       }
       break;
     case FILTER_TYPES:
+      if (action.payload === "all"){
+        return {
+          ...state,
+          pokemons: state.pokemonsCopy
+        }
+      }
       return {
         ...state,
         pokemons: state.pokemonsCopy.filter(

@@ -83,6 +83,7 @@ const getPokemonName = async function (name) {
         name: pokemonFetch.data.name,
         image: pokemonFetch.data.sprites.other.dream_world.front_default,
         types: pokemonFetch.data.types.map((type) => type.type.name),
+        id: pokemonFetch.data.id
       };
       return pokemonName;
     }

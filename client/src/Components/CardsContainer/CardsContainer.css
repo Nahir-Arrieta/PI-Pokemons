@@ -1,8 +1,12 @@
+
 .containercard{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 1rem;
     border: 1px;
     border-color: black;
+    padding-left: 220px;
+    padding-right: 250px;
 }
+
 

@@ -29,12 +29,7 @@ const CardsContainer = () => {
   useEffect(() => {}, [order]);
 
   return (
-    <div>
-      <Pagination
-        pokemons={pokemons.length}
-        postsPerPage={postsPerPage}
-        setCurrentPage={setCurrentPage}
-      />
+    <div className="container-page">
       <Orderings
         setOrder={setOrder}
         setRestart={setRestart}
@@ -57,11 +52,11 @@ const CardsContainer = () => {
         );
       })}
       </div>
-      <Pagination
-        pokemons={pokemons.length}
-        postsPerPage={postsPerPage}
-        setCurrentPage={setCurrentPage}
-      />
+        <Pagination
+          pokemons={pokemons.length}
+          postsPerPage={postsPerPage}
+          setCurrentPage={setCurrentPage}
+        />
     </div>
   );
 };

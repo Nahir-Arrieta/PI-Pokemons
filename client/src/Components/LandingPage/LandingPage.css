@@ -1,6 +1,8 @@
 .containerLanding{
-    height: cover;
-    width: cover;
+    height:100vh;
+    /* background-image: url(https://i.pinimg.com/originals/5c/32/67/5c32670ac7a737973c25d203c74c3911.gif); */
+    background-image: url(https://cdn.dribbble.com/users/1204535/screenshots/11195730/media/6823f0d3a3fc4ccf925df7bc710cd017.gif);
+    background-size: cover;
 }
 
 .buttonLanding{

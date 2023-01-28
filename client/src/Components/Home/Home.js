@@ -1,9 +1,9 @@
 import CardsContainer from "../CardsContainer/CardsContainer.js";
+import "./Home.css"
 
 const Home = () => {
   return (
-    <div>
-    
+    <div className="containerHome">
       <CardsContainer />
     </div>
   );

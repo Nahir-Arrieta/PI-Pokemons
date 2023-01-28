@@ -1,24 +1,33 @@
 // import { useEffect, useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector} from "react-redux";
 import { filterByTypes, getPokemonsApi, getPokemonTypes, pokemonBd } from "../../Redux/actions";
+import FormatListBulletedSharpIcon from '@mui/icons-material/FormatListBulletedSharp';
+import "./Filters.css"
 
 const Filters = ({setOrder}) => { 
     const Types = useSelector((state) => state.types);
     const dispatch = useDispatch();
+    const [checked, setChecked] = useState("")
+    const [active, setActive] = useState("")
     
-    const handleSelect = (event) => {
+    const handleCheckbox = (event) => {
         const value = event.target.value
+        setChecked(value);
         dispatch(filterByTypes(value))
         setOrder(value)
     }
+    
     const handleCheckboxDb = () =>{
-      
       dispatch(pokemonBd())
-
     }
+
     const handlePokemonsApi = () => {
         dispatch(getPokemonsApi())
+    }
+
+    const activeFilter = () =>{
+        active === "active" ? setActive("") : setActive("active")
     }
     
     useEffect(()=> {
@@ -26,9 +35,12 @@ const Filters = ({setOrder}) => {
     },[dispatch])
 
     return (
-        <div>
-        <label> Filter:</label>
-        <select value="default" onChange={handleSelect}>
+        <div className="container-filter-container">
+            <div className="icon-filter" onClick={activeFilter}>
+            <FormatListBulletedSharpIcon/>
+            <span>Filter</span>
+            </div>
+        {/* <select value="default" onChange={handleSelect}>
             <option value="default" disabled>Pokemons Types</option>
             {
                 Types?.map((type,index) =>{
@@ -36,12 +48,32 @@ const Filters = ({setOrder}) => {
                     value= {type.name}>{type.name}</option>
                 })
             }
-        </select>
+        </select> */}
+        <div className={active === "active"? "container-filter active": "container-filter"} >
+            <div className="filter-by-type">
+                {
+                    Types?.map((type,index) =>{
+                        return (
+                            <div key={index} className="group-type">
+                                <input type="checkbox" value={type.name} onChange={handleCheckbox} checked={checked === `${type.name}` ? true : false}/>
+                                <label>{type.name}</label>
+                            </div>
+                        )
+                    })
+                    
+                }
+                <div className="group-type">
+                    <input type="checkbox" value="all" onChange={handleCheckbox} checked={checked === "all" ? true : false}/>
+                    <label>All</label>
+                </div>
+            </div>
+        </div>
+       
         <div>
-            <button type="checkbox" onClick={handleCheckboxDb}>Created by you</button>
+            <button onClick={handleCheckboxDb}>Created by you</button>
         </div>
         <div>
-            <button type="checkbox" onClick={handlePokemonsApi}>Created by PokeApi</button>
+            <button onClick={handlePokemonsApi}>Created by PokeApi</button>
         </div>
         </div>
     );

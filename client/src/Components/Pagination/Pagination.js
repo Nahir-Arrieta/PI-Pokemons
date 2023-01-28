@@ -1,4 +1,5 @@
 import React from "react";
+import "./Pagination.css"
 
 const Pagination = ({ pokemons, postsPerPage, setCurrentPage }) => {
   const pageNumbers = [];
@@ -7,10 +8,10 @@ const Pagination = ({ pokemons, postsPerPage, setCurrentPage }) => {
   }
   // pageNumbers.pop();
   return (
-    <div>
+    <div className="paginationNumber">
       {pageNumbers?.map((number) => {
         return (
-          <button key={number} onClick={() => setCurrentPage(number)}>
+          <button className="number" key={number} onClick={() => setCurrentPage(number)}>
             {number}
           </button>
         );

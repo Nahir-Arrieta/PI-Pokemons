@@ -4,15 +4,17 @@ import "./Card.css"
 const Card = ({ name, image, types, id }) => {
   return (
     <div className="ContainerCard">
-      <Link to={`/home/${id}`}>
+      <div className="card">
+      <Link to={`/home/${id}`} className= "linkCard">
         <img src={image} alt={name} className="ImageCard"/>
-        <h1>{name}</h1>
+        <h1 className="poke-name">{name}</h1>
       </Link>
-      <h3 className="TypesCard">
+      <div  className="TypesCard">
         {types?.map((type, index) => {
-          return <p key={index}>{type.name ? type.name : type}</p>;
+          return <span key={index}>{type.name ? type.name : type}</span>;
         })}
-      </h3>
+      </div>
+      </div>
     </div>
   );
 };
