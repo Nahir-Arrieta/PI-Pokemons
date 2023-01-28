@@ -1,0 +1,30 @@
+.ContainerCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    background-image: url(https://2.bp.blogspot.com/-Whj_IgwT1PY/V7V490y4DCI/AAAAAAAHTGQ/i26zbhtht8kN1E6OZ5is7Qe3134G3plZACLcB/s1600/kit-fiesta-pokemon-go-para-imprimir-gratis-002.jpg);
+    background-size: cover;
+}
+
+.ImageCard{
+    width: 250px;
+    height: 250px;
+}
+.TypesCard{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: auto;
+    margin: 10px;
+    padding: 10px;
+    gap: 10px;
+}

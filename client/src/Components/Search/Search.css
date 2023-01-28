@@ -1,0 +1,44 @@
+.form-display{
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    justify-content: flex-end;
+}
+.form-group{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #555;
+    padding: 10px 20px;
+    border-radius: 40px;
+    width: 300px;
+    height: 20px;
+}
+
+.form-group input{
+    font-family: inherit;
+    width: 300px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+.searchIcon{
+    width: 50px;
+    height: 25px;
+    stroke: #555;
+    fill: #555;
+}
+
+.btn-search{
+    border:none;
+    outline: none;
+    border-radius: 25px;
+    font-family: inherit;
+    padding: 15px 30px;
+    cursor: pointer;
+    letter-spacing:1px;
+    background-color: #2E2EFE;
+    color: #fff;
+}
+

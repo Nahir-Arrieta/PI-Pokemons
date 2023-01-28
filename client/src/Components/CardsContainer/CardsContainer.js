@@ -7,6 +7,8 @@ import Pagination from "../Pagination/Pagination";
 import Orderings from "../Orderings/Orderings";
 import Filters from "../Filters/Filters";
 import Search from "../Search/Search";
+import "./CardsContainer.css"
+
 
 const CardsContainer = () => {
   const dispatch = useDispatch();
@@ -39,7 +41,10 @@ const CardsContainer = () => {
         restart={restart}
       />
       <Filters setOrder={setOrder} />
+      <div className="search">
       <Search />
+      </div>
+      <div className="containercard">
       {currentPosts?.map((pokemon, index) => {
         return (
           <Card
@@ -51,6 +56,12 @@ const CardsContainer = () => {
           />
         );
       })}
+      </div>
+      <Pagination
+        pokemons={pokemons.length}
+        postsPerPage={postsPerPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };

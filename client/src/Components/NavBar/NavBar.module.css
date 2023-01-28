@@ -1,7 +1,16 @@
 .mainContainer {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  border-radius: 15px;
-  border: 1px border black;
+  justify-content: space-between;
+  padding-right: 100px;
+  text-decoration: none;
+}
+
+.imageNavBar{
+  width: 150px;
+  height: 75px;
+}
+
+.Links{
+  text-decoration: none;
 }
